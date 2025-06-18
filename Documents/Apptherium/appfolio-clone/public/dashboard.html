@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AppFolio-style Financial Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      color: #2d3436;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #2c3e50;
+      color: white;
+      padding: 1.5rem;
+    }
+    .sidebar h1 {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .sidebar nav a {
+      display: block;
+      color: white;
+      margin: 1rem 0;
+      text-decoration: none;
+    }
+    .main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .filters select {
+      margin-left: 1rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .tile {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .tile strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .graphs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .graph-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .graph-card h3 {
+      margin-bottom: 1rem;
+    }
+    .activity {
+      margin-top: 3rem;
+    }
+    .activity h3 {
+      margin-bottom: 1rem;
+    }
+    .activity-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <aside class="sidebar">
+    <h1>Fortify PM</h1>
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#">Financials</a>
+      <a href="#">Tenants</a>
+      <a href="#">Documents</a>
+      <a href="#">Maintenance</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <h2>Dashboard</h2>
+      <div class="filters">
+        <select><option>All Properties</option></select>
+        <select><option>Month: May 2024</option></select>
+      </div>
+    </header>
+    <section class="tiles">
+      <div class="tile">
+        <small>Rent Income YTD</small>
+        <strong>$474,037.45</strong>
+        <span style="color:green">↑ +12.5%</span>
+      </div>
+      <div class="tile">
+        <small>Operating Income</small>
+        <strong>$472,616.07</strong>
+        <span style="color:green">↑ +8.3%</span>
+      </div>
+      <div class="tile">
+        <small>Collection Rate</small>
+        <strong>75%</strong>
+        <span>as of 5/31</span>
+      </div>
+      <div class="tile">
+        <small>Occupancy Rate</small>
+        <strong>95%</strong>
+        <span>62 of 65 units</span>
+      </div>
+    </section>
+    <section class="graphs">
+      <div class="graph-card">
+        <h3>Rent Income (Monthly)</h3>
+        <canvas id="rentChart"></canvas>
+      </div>
+      <div class="graph-card">
+        <h3>Income vs Expense</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+    </section>
+    <section class="activity">
+      <h3>Recent Activity</h3>
+      <div class="activity-card">
+        <strong>Jun 01, 2024 – Income</strong>
+        <p>Rent payment received – 3901 Highland Ave - Unit 12</p>
+        <p style="color:green">+$3,341.29</p>
+      </div>
+      <div class="activity-card">
+        <strong>Jun 01, 2024 – Document</strong>
+        <p>Owner Statement generated</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  const rentCtx = document.getElementById('rentChart');
+  new Chart(rentCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        label: 'Rent Income',
+        data: [32000, 34000, 36000, 39000, 41000],
+        borderColor: '#4caf50',
+        fill: false,
+        tension: 0.1
+      }]
+    }
+  });
+  const barCtx = document.getElementById('barChart');
+  new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [
+        {
+          label: 'Income',
+          data: [32000, 34000, 36000, 39000, 41000],
+          backgroundColor: '#42a5f5'
+        },
+        {
+          label: 'Expenses',
+          data: [15000, 17000, 19000, 22000, 25000],
+          backgroundColor: '#ef5350'
+        }
+      ]
+    }
+  });
+</script>
+</body>
+</html>
